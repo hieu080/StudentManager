@@ -29,27 +29,27 @@ public class StudentList extends ArrayList<Student>{
         return search (code) !=null;
     }
 
-    public void addStudent() {
-    String newCode;
-    String newName;
-    int newMark = 0;
-    boolean codeDuplicated = false;
-    do {
-        newCode = Inputter.inputPattern("St. code S000: ", "[sS] [\\d] {3}");
-        newCode= newCode.trim().toUpperCase(); 
-        codeDuplicated = isCodeDupplicated(newCode);
-        if (codeDuplicated) 
-            System.out.println("Code is duplicated!");
+    public void addStudent(){
+        String newCode, newName;
+        int newMark;
+        boolean codeDupplicated = false;
+        do{
+            newCode = Inputter.inputPattern("St. code S000: ","[sS][\\d]{3}" ) ;
+            newCode = newCode.trim().toUpperCase();
+            codeDupplicated = isCodeDupplicated(newCode);
+            if(codeDupplicated){
+                System.out.println("Code is duplicated!");
+            }                
+        }while(codeDupplicated==true);
+        
+        newName = Inputter.inputNonBlankStr("Name of new student: ");
+        newName = newName.toUpperCase();
+        newMark = Inputter.inputInt("Mark: ", 0, 10);
+        Student st = new Student(newCode, newName, newMark);
+        this.add(st);
+        System.out.println("Stdent "+newCode+" has been added.");
+        
     }
-    while (codeDuplicated == true);
-    newName = Inputter.inputNonBlankStr("Name of new student: ");
-    newName= newName.toUpperCase();
-    newMark = Inputter.inputInt("Mark: ", 0, 10);
-            
-    Student st = new Student (newCode, newName, newMark);
-    this.add(st);
-    System.out.println("Student" + newCode + " has been added.");
-}
     
     public void searchStudent () {
         if (this.isEmpty())
